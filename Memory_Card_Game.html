@@ -454,8 +454,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Difficulty Modal -->
     <div class="modal" id="difficulty-modal">
         <div class="modal-content">
             <h2>Select Difficulty</h2>
@@ -650,18 +648,18 @@
                         'expert': 50
                     };
                     
-                    // Bonus points for quick matches
+                 
                     const timeBonus = Math.max(0, 30 - Math.floor(seconds / 5));
                     const points = pointsBase[difficulty] + timeBonus;
                     
-                    // Add points to score
+                   
                     score += points;
                     updateStats();
                     
-                    // Show score popup
+                   
                     showScorePopup(points, secondCard);
                     
-                    // Remove cards with animation
+                 
                     removeCards();
                     
                     matchedPairs++;
@@ -686,7 +684,7 @@
                 popup.style.top = `${rect.top}px`;
                 document.body.appendChild(popup);
                 
-                // Remove popup after animation
+              
                 setTimeout(() => {
                     document.body.removeChild(popup);
                 }, 1000);
@@ -760,16 +758,10 @@
 
             function gameWon() {
                 clearInterval(gameTimer);
-                
-                // Update win modal stats
                 winTime.textContent = timerElement.textContent;
                 winMoves.textContent = moves;
                 winScore.textContent = score;
-                
-                // Show win modal
                 showModal(winModal);
-                
-                // Create confetti effect
                 createConfetti();
             }
 
@@ -809,7 +801,7 @@
                     }
                 `;
                 
-                // Add keyframes to document
+               
                 const styleSheet = document.createElement('style');
                 styleSheet.textContent = keyframes;
                 document.head.appendChild(styleSheet);
