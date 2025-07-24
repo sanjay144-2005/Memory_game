@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Card Game</title>
     <style>
@@ -438,7 +436,7 @@
         </div>
     </div>
 
-    <!-- Win Modal -->
+
     <div class="modal" id="win-modal">
         <div class="modal-content">
             <h2>Congratulations! 🎉</h2>
@@ -476,7 +474,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // DOM Elements
             const gameContainer = document.getElementById('memory-game');
             const movesElement = document.getElementById('moves');
             const pairsElement = document.getElementById('pairs');
@@ -496,11 +493,7 @@
             const applyDifficultyBtn = document.getElementById('apply-difficulty-btn');
             const cancelDifficultyBtn = document.getElementById('cancel-difficulty-btn');
             const currentYearElement = document.getElementById('current-year');
-
-            // Set current year in footer
-            currentYearElement.textContent = new Date().getFullYear();
-
-            // Game state
+            currentYearElement.textContent = new Date().getFullYear();         
             let cards = [];
             let hasFlippedCard = false;
             let lockBoard = false;
@@ -520,7 +513,7 @@
                 expert: { rows: 5, cols: 6, totalPairs: 15 }
             };
 
-            // Card symbols (emojis)
+            
             const symbols = [
                 '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼',
                 '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔',
@@ -528,10 +521,10 @@
                 '🐗', '🐴', '🦄', '🐝', '🐛', '🦋', '🐌', '🐞'
             ];
 
-            // Initialize game
+            
             initGame();
 
-            // Event listeners
+          
             restartBtn.addEventListener('click', restartGame);
             themeBtn.addEventListener('click', toggleTheme);
             difficultyBtn.addEventListener('click', () => showModal(difficultyModal));
@@ -553,13 +546,13 @@
                 });
             });
 
-            // Check for saved theme preference
+        
             if (localStorage.getItem('darkMode') === 'true') {
                 document.body.classList.add('dark-mode');
                 themeBtn.textContent = 'Light Mode';
             }
 
-            // Functions
+           
             function initGame() {
                 resetGameState();
                 createCards();
@@ -571,21 +564,21 @@
                 const settings = difficultySettings[difficulty];
                 totalPairs = settings.totalPairs;
                 
-                // Update grid layout based on difficulty
+              
                 gameContainer.style.gridTemplateColumns = `repeat(${settings.cols}, 1fr)`;
                 
-                // Select symbols for this game
+                
                 const gameSymbols = [...symbols.slice(0, totalPairs)];
                 
-                // Create pairs
+               
                 cards = [...gameSymbols, ...gameSymbols]
                     .sort(() => Math.random() - 0.5)
                     .map((symbol, index) => createCard(symbol, index));
                 
-                // Add cards to the DOM
+                
                 cards.forEach(card => gameContainer.appendChild(card));
                 
-                // Update pairs counter
+               
                 pairsElement.textContent = `0/${totalPairs}`;
             }
 
@@ -628,7 +621,7 @@
                     return;
                 }
                 
-                // Second card flipped
+            
                 secondCard = this;
                 checkForMatch();
             }
@@ -640,7 +633,7 @@
                 const isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
                 
                 if (isMatch) {
-                    // Calculate points based on difficulty and time
+                   
                     const pointsBase = {
                         'easy': 10,
                         'medium': 20,
@@ -655,8 +648,7 @@
                    
                     score += points;
                     updateStats();
-                    
-                   
+                
                     showScorePopup(points, secondCard);
                     
                  
@@ -691,7 +683,7 @@
             }
 
             function removeCards() {
-                // Disable cards and add matched class for fade-out effect
+                
                 firstCard.removeEventListener('click', flipCard);
                 secondCard.removeEventListener('click', flipCard);
                 
@@ -791,7 +783,7 @@
                 confetti.style.animation = `fall ${animationDuration}s linear forwards`;
                 confetti.style.transform = `translateX(${xDistance}vw) rotate(${Math.random() * 360}deg)`;
                 
-                // Create keyframes for falling animation
+                
                 const keyframes = `
                     @keyframes fall {
                         to {
@@ -800,13 +792,11 @@
                         }
                     }
                 `;
-                
+        
                
                 const styleSheet = document.createElement('style');
                 styleSheet.textContent = keyframes;
                 document.head.appendChild(styleSheet);
-                
-                // Remove confetti after animation
                 setTimeout(() => {
                     confetti.remove();
                     styleSheet.remove();
@@ -816,8 +806,6 @@
             function toggleTheme() {
                 document.body.classList.toggle('dark-mode');
                 themeBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-                
-                // Save preference
                 localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
             }
 
